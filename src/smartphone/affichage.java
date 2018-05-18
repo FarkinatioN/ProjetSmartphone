@@ -16,7 +16,7 @@ public class affichage extends JFrame {
 	
 	private JPanel panbtn1=new JPanel();
 	
-	private ImageIcon homeImage = new ImageIcon ("E:/Cours/Sem 2 2017/632-1 POO/Prog/ProjetSmartphone/Image/homebutton.png");
+	private ImageIcon homeImage = new ImageIcon ("Image/homebutton.png");
 	private JButton home = new JButton(homeImage);
 	private JButton back = new JButton("Back");
 	private JButton allelements = new JButton("All elements");
