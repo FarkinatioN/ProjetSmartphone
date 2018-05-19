@@ -1,6 +1,7 @@
 package smartphone;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +17,12 @@ public class affichage extends JFrame {
 	
 	private JPanel panbtn1=new JPanel();
 	
-	private ImageIcon homeImage = new ImageIcon ("Image/homebutton.png");
+	private ImageIcon homeImage = new ImageIcon ("Image/home.png");
 	private JButton home = new JButton(homeImage);
-	private JButton back = new JButton("Back");
-	private JButton allelements = new JButton("All elements");
+	private ImageIcon backImage = new ImageIcon("Image/back.png");
+	private JButton back = new JButton(backImage);
+	private ImageIcon overviewImage = new ImageIcon("Image/overview.png");
+	private JButton overview = new JButton(overviewImage);
 	private JLabel label1 = new JLabel();
 	
 	
@@ -39,9 +42,10 @@ public class affichage extends JFrame {
 		label1.setText("Hello World!");
 		
 		jPanelNorth.add(label1);
-		jPanelSouth.add(home);
+		
 		jPanelSouth.add(back);
-		jPanelSouth.add(allelements);
+		jPanelSouth.add(home);
+		jPanelSouth.add(overview);
 		
 		
 		// add panel 
@@ -50,11 +54,9 @@ public class affichage extends JFrame {
 		panbtn1.setLayout(new BorderLayout());
 		//panbtn1.add(home);
 		
-		
-		home.addActionListener(new Hello());
-		
 		back.addActionListener(new Hello());
-		allelements.addActionListener(new Hello());
+		home.addActionListener(new Hello());
+		overview.addActionListener(new Hello());
 		
 		
 		// pack();
