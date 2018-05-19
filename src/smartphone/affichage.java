@@ -2,7 +2,9 @@ package smartphone;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +24,8 @@ public class affichage extends JFrame {
 
 	private JPanel jPanelNorth = new JPanel();
 	private JPanel jPanelSouth = new JPanel();
-
+	
+	
 	private Dimension d = new Dimension(480, 800);
 
 	public affichage() {
@@ -31,11 +34,24 @@ public class affichage extends JFrame {
 		setSize(d);
 		setVisible(true);
 		setLocationRelativeTo(null);
+		
+		
+		
+		
+		
+		
+		getContentPane().setBackground(Color.BLACK);
+		jPanelSouth.setBackground(Color.black);
+		jPanelNorth.setBackground(Color.BLACK);
+		
 
 		jPanelSouth.add(back);
 		jPanelSouth.add(home);
 		jPanelSouth.add(overview);
-
+		
+		
+		
+		
 		// add panel
 		add(jPanelNorth, BorderLayout.NORTH);
 		add(jPanelSouth, BorderLayout.SOUTH);
