@@ -1,25 +1,15 @@
 package smartphone;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DateFormat;
+import java.awt.*;
+import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 public class DefaultFrame extends JFrame {
 
@@ -30,12 +20,28 @@ public class DefaultFrame extends JFrame {
 	private JButton back = new JButton(backImage);
 	private ImageIcon overviewImage = new ImageIcon("Image/overview.png");
 	private JButton overview = new JButton(overviewImage);
-	
 
 	//création Panel
-	private JPanel jPanelSouth = new JPanel();	
+	private JPanel jPanelSouth = new JPanel();
+	private JPanel jPanelHeure = new JPanel();
+	//private JPanel jPanelDate = new JPanel();
+	
+	
+	SimpleDateFormat d = new SimpleDateFormat ("dd/MM/yyyy" );
+	SimpleDateFormat h = new SimpleDateFormat ("hh:mm");
+	 
+	Date currentTime_1 = new Date();
+	 
+	//JLabel dateString = new JLabel(d.format(currentTime_1));
+	JLabel heureString = new JLabel(h.format(currentTime_1));
 
 	public DefaultFrame() {
+		
+		jPanelHeure.add(heureString);
+		heureString.setForeground(Color.white);
+		jPanelHeure.setBackground(Color.black);
+		
+		
 		// default parameters
 		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -58,6 +64,7 @@ public class DefaultFrame extends JFrame {
 		jPanelSouth.add(Box.createHorizontalGlue());
 
 		// add panel
+		add(jPanelHeure, BorderLayout.NORTH);
 		add(jPanelSouth, BorderLayout.SOUTH);
 
 		back.setBackground(Color.black);
@@ -75,21 +82,17 @@ public class DefaultFrame extends JFrame {
 		back.setContentAreaFilled(false);
 		home.setContentAreaFilled(false);
 		overview.setContentAreaFilled(false);
-		
+
 		//retour sur page d'avant dans ce cas home
 		EcouteurBack retour = new EcouteurBack();
 		back.addActionListener(retour);
 		//retour home
 		EcouteurHome retourHome = new EcouteurHome();
 		home.addActionListener(retourHome);
+		//ecouteur over
+		EcouteurOver over = new EcouteurOver();
+		overview.addMouseListener(over);
 
-	}
-	public JButton getback() {
-		return back;
-	}
-
-	public void removeback() {
-		remove(back);
 	}
 	class EcouteurBack implements ActionListener{
 		@Override
@@ -100,10 +103,21 @@ public class DefaultFrame extends JFrame {
 	class EcouteurHome implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent a) {
-			if (a.getSource()==home)
-				setVisible(false);
-			else
-				dispose();
+			affichage a1 = new affichage ();
+			a1.setVisible(true);
+			
+			
 		}
+	}
+	class EcouteurOver extends MouseAdapter{
+		@Override
+		public void mouseReleased(MouseEvent f){
+			System.exit(0);
+		}
+	}
+	public static String getDateFormatted(String format){
+		DateTimeFormatter dateTimeFormatted = DateTimeFormatter.ofPattern(format);  
+	    LocalDateTime now = LocalDateTime.now();  
+		return dateTimeFormatted.format(now);
 	}
 }

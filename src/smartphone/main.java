@@ -6,9 +6,6 @@ public class main {
 
 
 		affichage affiche = new affichage();
-		AddContact contact = new AddContact();
-		ListContact listContact = new ListContact();
-		GalerieImage galImage = new GalerieImage();
 
 	}
 

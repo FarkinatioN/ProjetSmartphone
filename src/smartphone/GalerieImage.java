@@ -1,19 +1,11 @@
 package smartphone;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class GalerieImage extends DefaultFrame{
+	private static final long serialVersionUID = 1L;
 
 	//Composition JpanelNorthinCenter
 	private JLabel TextListGalerie = new JLabel("Pellicule");

@@ -1,28 +1,15 @@
 package smartphone;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class ListContact extends DefaultFrame{
-
+	private static final long serialVersionUID = 1L;
+	
 	//Composition pour le jPanelNorth
 	private JLabel TextAddContact = new JLabel("Ajouter un nouveau contact");
 	private ImageIcon addContactImage = new ImageIcon("Image/addContact.png");
