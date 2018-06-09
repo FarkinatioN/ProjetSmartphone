@@ -11,7 +11,7 @@ public class GalerieImage extends DefaultFrame{
 	private JLabel TextListGalerie = new JLabel("Pellicule");
 
 	//création Panel
-	private JPanel jPanelCenter = new JPanel();
+	private JPanel jPanelCenter = new JPanel(new BorderLayout());
 
 	private JPanel jPanelNorthinCenter = new JPanel();
 
@@ -29,8 +29,8 @@ public class GalerieImage extends DefaultFrame{
 		//jPanelNorthinCenter modif
 		jPanelNorthinCenter.setBackground(Color.BLACK);
 		//ajout objet dans panel nord du panel centre
-		jPanelNorthinCenter.add(TextListGalerie);
 		jPanelNorthinCenter.add(Box.createHorizontalGlue());
+		jPanelNorthinCenter.add(TextListGalerie);
 		jPanelNorthinCenter.add(Box.createHorizontalGlue());
 		jPanelNorthinCenter.add(Box.createHorizontalGlue());
 		//modif couleur fond et écriture texte

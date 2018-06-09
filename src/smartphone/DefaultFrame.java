@@ -5,11 +5,9 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 public class DefaultFrame extends JFrame {
 
@@ -20,27 +18,19 @@ public class DefaultFrame extends JFrame {
 	private JButton back = new JButton(backImage);
 	private ImageIcon overviewImage = new ImageIcon("Image/overview.png");
 	private JButton overview = new JButton(overviewImage);
+	
+	private JLabel operateur = new JLabel("Swisscom");
 
 	//création Panel
 	private JPanel jPanelSouth = new JPanel();
 	private JPanel jPanelHeure = new JPanel();
-	//private JPanel jPanelDate = new JPanel();
 	
-	
-	SimpleDateFormat d = new SimpleDateFormat ("dd/MM/yyyy" );
-	SimpleDateFormat h = new SimpleDateFormat ("hh:mm");
-	 
-	Date currentTime_1 = new Date();
-	 
-	//JLabel dateString = new JLabel(d.format(currentTime_1));
-	JLabel heureString = new JLabel(h.format(currentTime_1));
+	//ajout Heure
+	SimpleDateFormat h = new SimpleDateFormat ("hh:mm   ");
+	Date currentTime = new Date();
+	JLabel heureString = new JLabel(h.format(currentTime));
 
-	public DefaultFrame() {
-		
-		jPanelHeure.add(heureString);
-		heureString.setForeground(Color.white);
-		jPanelHeure.setBackground(Color.black);
-		
+	public DefaultFrame() {		
 		
 		// default parameters
 		setUndecorated(true);
@@ -48,8 +38,20 @@ public class DefaultFrame extends JFrame {
 		setSize(480, 800);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		getContentPane().setBackground(Color.BLACK);
-		jPanelSouth.setBackground(Color.BLACK);
+		getContentPane().setBackground(Color.BLACK);		
+		
+		//jPanelHeure en BoxLayout
+		jPanelHeure.setLayout(new BoxLayout(jPanelHeure, BoxLayout.LINE_AXIS));
+		
+		//création du panel
+		jPanelHeure.add(operateur);
+		jPanelHeure.add(Box.createHorizontalGlue());
+		jPanelHeure.add(heureString);
+		
+		//modification dans le panel
+		operateur.setForeground(Color.white);
+		heureString.setForeground(Color.white);
+		jPanelHeure.setBackground(Color.black);
 
 		// jPanelSouth --> le panel en BoyLayout
 		jPanelSouth.setLayout(new BoxLayout(jPanelSouth, BoxLayout.LINE_AXIS));
@@ -62,6 +64,9 @@ public class DefaultFrame extends JFrame {
 		jPanelSouth.add(Box.createHorizontalGlue());
 		jPanelSouth.add(overview);
 		jPanelSouth.add(Box.createHorizontalGlue());
+		
+		//modif jPanelSouth
+		jPanelSouth.setBackground(Color.BLACK);
 
 		// add panel
 		add(jPanelHeure, BorderLayout.NORTH);
@@ -103,10 +108,8 @@ public class DefaultFrame extends JFrame {
 	class EcouteurHome implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent a) {
-			affichage a1 = new affichage ();
+			Menu a1 = new Menu ();
 			a1.setVisible(true);
-			
-			
 		}
 	}
 	class EcouteurOver extends MouseAdapter{

@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class affichage extends DefaultFrame implements ActionListener {
+public class Menu extends DefaultFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private ImageIcon contactImage = new ImageIcon("Image/contact.png");
@@ -27,9 +27,9 @@ public class affichage extends DefaultFrame implements ActionListener {
 	//création Panel
 	private JPanel jPanelCenter = new JPanel();
 
-	public affichage() {
+	public Menu() {
 		// default parameters
-		setVisible(true);
+		//setVisible(true);
 
 		//jPanelCenter
 		jPanelCenter.setLayout(new GridLayout(3,2));
