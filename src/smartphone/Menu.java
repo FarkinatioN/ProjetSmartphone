@@ -56,9 +56,6 @@ public class Menu extends DefaultFrame implements ActionListener {
 			jb.setContentAreaFilled(false);
 		}
 
-		//jPanelNorth
-		//jPanelNorth.add(dateLabel);
-
 
 		// add panel
 		add(jPanelCenter, BorderLayout.CENTER);

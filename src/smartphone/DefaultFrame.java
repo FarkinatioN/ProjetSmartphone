@@ -18,20 +18,20 @@ public class DefaultFrame extends JFrame {
 	private JButton back = new JButton(backImage);
 	private ImageIcon overviewImage = new ImageIcon("Image/overview.png");
 	private JButton overview = new JButton(overviewImage);
-	
+
 	private JLabel operateur = new JLabel("Swisscom");
 
 	//création Panel
 	private JPanel jPanelSouth = new JPanel();
 	private JPanel jPanelHeure = new JPanel();
-	
+
 	//ajout Heure
 	SimpleDateFormat h = new SimpleDateFormat ("hh:mm   ");
 	Date currentTime = new Date();
 	JLabel heureString = new JLabel(h.format(currentTime));
 
 	public DefaultFrame() {		
-		
+
 		// default parameters
 		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -39,15 +39,15 @@ public class DefaultFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(Color.BLACK);		
-		
+
 		//jPanelHeure en BoxLayout
 		jPanelHeure.setLayout(new BoxLayout(jPanelHeure, BoxLayout.LINE_AXIS));
-		
+
 		//création du panel
 		jPanelHeure.add(operateur);
 		jPanelHeure.add(Box.createHorizontalGlue());
 		jPanelHeure.add(heureString);
-		
+
 		//modification dans le panel
 		operateur.setForeground(Color.white);
 		heureString.setForeground(Color.white);
@@ -64,7 +64,7 @@ public class DefaultFrame extends JFrame {
 		jPanelSouth.add(Box.createHorizontalGlue());
 		jPanelSouth.add(overview);
 		jPanelSouth.add(Box.createHorizontalGlue());
-		
+
 		//modif jPanelSouth
 		jPanelSouth.setBackground(Color.BLACK);
 
@@ -108,6 +108,10 @@ public class DefaultFrame extends JFrame {
 	class EcouteurHome implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent a) {
+			Frame[] allFrames = Frame.getFrames();
+			for(int i=0; i<allFrames.length; i++){
+				allFrames[i].dispose();
+			}
 			Menu a1 = new Menu ();
 			a1.setVisible(true);
 		}
@@ -120,7 +124,7 @@ public class DefaultFrame extends JFrame {
 	}
 	public static String getDateFormatted(String format){
 		DateTimeFormatter dateTimeFormatted = DateTimeFormatter.ofPattern(format);  
-	    LocalDateTime now = LocalDateTime.now();  
+		LocalDateTime now = LocalDateTime.now();  
 		return dateTimeFormatted.format(now);
 	}
 }

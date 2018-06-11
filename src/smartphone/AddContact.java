@@ -6,12 +6,12 @@ import java.io.*;
 
 import javax.swing.*;
 
-public class AddContact extends JFrame {
+public class AddContact extends DefaultFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel LastName = new JLabel("Nom : ");
 	private JLabel FirstName = new JLabel("Prénom : ");
-	private JLabel Number = new JLabel("Number : ");
+	private JLabel Number = new JLabel("Num\u00E9ro : ");
 	private JLabel Photo = new JLabel("Choisir une photo depuis la galerie : ");
 
 	private JTextField TextLastName = new JTextField(15);
@@ -55,8 +55,8 @@ public class AddContact extends JFrame {
 		EcouteurOK ecouteurOK = new EcouteurOK();
 		buttonOk.addActionListener(ecouteurOK);
 
-		add(panel_center);
-		add(panel_south, BorderLayout.SOUTH);
+		getContentPane().add(panel_center);
+		getContentPane().add(panel_south, BorderLayout.SOUTH);
 
 		pack();
 

@@ -1,80 +1,113 @@
 package smartphone;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.MatteBorder;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
+import java.awt.event.*;
+import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;;
 
 public class UnlockScreen extends DefaultFrame{
 
-//	private ImageIcon unlockImage = new ImageIcon("Image/unlock.png");
-//	private JButton unlockBtn = new JButton(unlockImage);
+	private static final long serialVersionUID = 1L;
+	private ImageIcon unlockImage = new ImageIcon("Image/unlock.png");
+	private JButton unlockBtn = new JButton(unlockImage);
 
-	private JLabel unlock = new JLabel("Glisser pour d\u00E9verouiller");
-	
+	private Icon sliderImage = new ImageIcon("Image/slider.png");
+
+	private JLabel unlock = new JLabel("Glisser pour déverouiller");
+
 	private JPanel jPanelCenter = new JPanel();
+	
 	private final JSlider slider = new JSlider();
+
+	// Date
+	SimpleDateFormat h = new SimpleDateFormat ("dd MMMM yyyy");
+	Date dateDay = new Date();
+	JLabel heureString = new JLabel(h.format(dateDay));
 
 	public UnlockScreen() {
 
 		// default parameters
 		setVisible(true);
-
-		// création du panel south dans le center
-		jPanelCenter.setLayout(new GridLayout(2,1));
-		unlock.setHorizontalAlignment(SwingConstants.CENTER);
-		jPanelCenter.add(unlock);
-//		jPanelCenter.add(unlockBtn);
+		jPanelCenter.setForeground(Color.WHITE);
 
 		//modif dans le panel
 		jPanelCenter.setBackground(Color.black);
-//		unlockBtn.setBackground(Color.black);
-//		unlockBtn.setBorderPainted(false);
-//		unlockBtn.setFocusPainted(false);
-//		unlockBtn.setContentAreaFilled(false);
-		
-		unlock.setHorizontalTextPosition(SwingConstants.CENTER);
-		unlock.setBounds(150, 300, 200, 30);
-
-		unlock.setForeground(Color.white);
 
 		//Taille text
 		Font taille = new Font("Arial",Font.BOLD,20);
-		unlock.setFont(taille);
 
 		// add panel
 		getContentPane().add(jPanelCenter, BorderLayout.CENTER);
-		slider.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
+
+		//devérouiller
+		sliderUnlock slideU = new sliderUnlock();
+		slider.setPaintLabels(true);
+		slider.setPaintTicks(true);
+		slider.setBounds(84, 615, 314, 24);
+		slider.setPreferredSize(new Dimension(150, 30));
+		slider.setValue(0);
+		slider.addMouseListener(slideU);
+		jPanelCenter.setLayout(null);
+
+		slider.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		slider.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		slider.setBackground(Color.black);
+
+		//ajout dans panel
+		jPanelCenter.add(slider);
+		unlock.setHorizontalAlignment(SwingConstants.CENTER);
+		jPanelCenter.add(unlock);
+		jPanelCenter.add(unlockBtn);
+
+		//modif unlocBtn
+		unlockBtn.setBackground(Color.black);
+		unlockBtn.setBorderPainted(false);
+		unlockBtn.setFocusPainted(false);
+		unlockBtn.setContentAreaFilled(false);
+		unlockBtn.setBounds(165, 150, 150, 150);
+
+		unlock.setHorizontalTextPosition(SwingConstants.CENTER);
+		unlock.setBounds(124, 578, 234, 24);
+
+		unlock.setForeground(Color.white);
+		unlock.setFont(taille);
+		heureString.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
+
+		//date
+		heureString.setBackground(Color.BLACK);
+		heureString.setForeground(Color.WHITE);
+		heureString.setBounds(182, 414, 126, 44);
+		jPanelCenter.add(heureString);
+
+	}
+
+	class sliderUnlock extends MouseAdapter{
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			int valeur = slider.getValue();
+			if (valeur == 100){
 				Menu menu = new Menu();
 				menu.setVisible(true);
 				dispose();
 			}
-		});
-		
-		slider.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		slider.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		slider.setMinimum(50);
-		slider.setPaintLabels(true);
-		slider.setPaintTicks(true);
-		slider.setSnapToTicks(true);
-		slider.setToolTipText("Slide to unlock");
-		slider.setForeground(Color.WHITE);
-		slider.setBackground(Color.BLACK);
-		
-		jPanelCenter.add(slider);
-
+			else
+				slider.setValue(0);
+		}
 	}
-
+	public static String getDateFormatted(String format){
+		DateTimeFormatter dateTimeFormatted = DateTimeFormatter.ofPattern(format);  
+		LocalDateTime now = LocalDateTime.now();  
+		return dateTimeFormatted.format(now);
+	}
 }
