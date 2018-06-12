@@ -2,6 +2,7 @@ package smartphone;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
@@ -117,11 +118,17 @@ public class Menu extends DefaultFrame implements ActionListener {
 	class contactEcouteur extends MouseAdapter {
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			ListContact contact = new ListContact();
-			contact.setVisible(true);
-			contact.setSize(480, 800);
-			contact.setResizable(false);
-			contact.setLocationRelativeTo(null);
+			ListContact contact;
+			try {
+				contact = new ListContact();
+				contact.setVisible(true);
+				contact.setSize(480, 800);
+				contact.setResizable(false);
+				contact.setLocationRelativeTo(null);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

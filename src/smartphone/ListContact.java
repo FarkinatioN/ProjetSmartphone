@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class ListContact extends DefaultFrame{
 	private static final long serialVersionUID = 1L;
-	
+
 	//Composition pour le jPanelNorth
 	private JLabel TextAddContact = new JLabel("Ajouter un nouveau contact");
 	private ImageIcon addContactImage = new ImageIcon("Image/addContact.png");
@@ -20,12 +20,12 @@ public class ListContact extends DefaultFrame{
 
 	//création Panel
 	private JPanel jPanelNorth = new JPanel();
-	private JPanel jPanelCenter = new JPanel();
+	private JPanel jPanelCenter = new JPanel(new BorderLayout());
 
 	private JPanel jPanelNorthinCenter = new JPanel();
 	private JPanel jPanelCenterinCenter = new JPanel();
 
-	public ListContact(){
+	public ListContact() throws FileNotFoundException{
 		// default parameters
 		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -69,55 +69,60 @@ public class ListContact extends DefaultFrame{
 
 		//jPanelCenterinCenter création
 		jPanelCenterinCenter.setLayout(new GridLayout());
+
+		//Composition panelCenter
+		JList list = new JList();
+		Contact newContact = new Contact(null, null, null);
+		FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
+			try{
+				ObjectInputStream in = new ObjectInputStream (fcontact) ;
+				newContact = (Contact) in.readObject() ;
+				in.close();
+
+			} catch (Exception ex)
+			{
+				System.err.println ("Erreur de lecture " + ex) ;
+			}
+			list.add(newContact.getNom());
+			jPanelCenterinCenter.add(list);
+			list.setBackground(Color.black);
+			list.setForeground(Color.white);
+
+
+			//add panel
+			getContentPane().add(jPanelNorth, BorderLayout.NORTH);
+			getContentPane().add(jPanelCenter, BorderLayout.CENTER);
+			jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
+
+			jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);
+
+			//ouverture de la fenêtre AddContact
+			contactEcouteur mouse = new contactEcouteur();
+			addContact.addMouseListener(mouse);
+
+		}
+		class contactEcouteur extends MouseAdapter {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AddContact contact = new AddContact();
+				contact.setVisible(true);
+				contact.setSize(480, 800);
+				contact.setResizable(false);
+				contact.setLocationRelativeTo(null);
+			}	
+		}
+		//	public static JList deserializeObjet(String f) throws IOException, ClassNotFoundException {
+		//
+		//		FileInputStream fichier = new FileInputStream(f);
+		//		BufferedInputStream bfichier = new BufferedInputStream(fichier);
+		//		ObjectInputStream obfichier = new ObjectInputStream(bfichier);
+		//		JList afficheContact = (JList) obfichier.readObject();
+		//		return afficheContact;
+		//	}
 		
-		JLabel[] contact = new JLabel[3];
-//		for (int i = 0; i < contact.length; i++) {
-//			JLabel JLcontact = new JLabel();
-//			try {
-//				JLcontact = deserializeObjet("File/ListContact/ListContact.ser");
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			contact[i] = JLcontact;
-//			jPanelCenterinCenter.add(JLcontact);
-//			
-//			JLcontact.setBackground(Color.black);
-//			JLcontact.setForeground(Color.white);
-//			
-//		}
 
-		//add panel
-		add(jPanelNorth, BorderLayout.NORTH);
-		add(jPanelCenter, BorderLayout.CENTER);
-		jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
-		jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);
-
-		//ouverture de la fenêtre AddContact
-		contactEcouteur mouse = new contactEcouteur();
-		addContact.addMouseListener(mouse);
+		public void add(Component nom2, Component prenom2, Component num2) {
+			
+		}
 
 	}
-	class contactEcouteur extends MouseAdapter {
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			AddContact contact = new AddContact();
-			contact.setVisible(true);
-			contact.setSize(480, 800);
-			contact.setResizable(false);
-			contact.setLocationRelativeTo(null);
-		}	
-	}
-	public static JLabel deserializeObjet(String f) throws IOException, ClassNotFoundException {
-
-		FileInputStream fichier = new FileInputStream(f);
-		BufferedInputStream bfichier = new BufferedInputStream(fichier);
-		ObjectInputStream obfichier = new ObjectInputStream(bfichier);
-		JLabel afficheContact = (JLabel) obfichier.readObject();
-		return afficheContact;
-	}
-
-}

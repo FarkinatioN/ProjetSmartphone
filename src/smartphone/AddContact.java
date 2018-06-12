@@ -8,25 +8,25 @@ import javax.swing.*;
 
 public class AddContact extends DefaultFrame {
 	private static final long serialVersionUID = 1L;
-	
+
 	private JLabel LastName = new JLabel("Nom : ");
 	private JLabel FirstName = new JLabel("Prénom : ");
-	private JLabel Number = new JLabel("Num\u00E9ro : ");
+	private JLabel Number = new JLabel("Numéro : ");
 	private JLabel Photo = new JLabel("Choisir une photo depuis la galerie : ");
 
 	private JTextField TextLastName = new JTextField(15);
-	private JTextField TextFirsttName = new JTextField(15);
+	private JTextField TextFirstName = new JTextField(15);
 	private JTextField TextNumber = new JTextField(15);
 	private JButton Parcourir = new JButton("Parcourir");
 
 	private JButton buttonOk = new JButton("Ok");
 	private JButton buttonCancel = new JButton("Cancel");
 
-
 	private JPanel panel_center = new JPanel();
 	private JPanel panel_south = new JPanel();
 
 	public AddContact(){
+
 		setUndecorated(true);
 		getContentPane().setBackground(Color.BLACK);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class AddContact extends DefaultFrame {
 		panel_center.add(LastName);
 		panel_center.add(TextLastName);
 		panel_center.add(FirstName);
-		panel_center.add(TextFirsttName);
+		panel_center.add(TextFirstName);
 		panel_center.add(Number);
 		panel_center.add(TextNumber);
 		panel_center.add(Photo);
@@ -67,6 +67,12 @@ public class AddContact extends DefaultFrame {
 		Photo.setForeground(Color.white);
 
 	}
+	//	public JTextField getTextLastName(){
+	//		return TextLastName;		
+	//	}
+	//	public void setTextLastName(){
+	//		this.TextLastName=TextLastName;		
+	//	}
 	class Ecouteur implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -81,49 +87,36 @@ public class AddContact extends DefaultFrame {
 	class EcouteurOK implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e){
-			AddContact newContact = new AddContact();
-			if (e.getSource()==buttonOk){
-				FileOutputStream fichier = null;
-				try {
-					fichier = new FileOutputStream("File/ListContact/ListContact.txt");
-				} catch (FileNotFoundException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				
-				BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
-				ObjectOutputStream obfichier = null;
-				try {
-					obfichier = new ObjectOutputStream(bfichier);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					obfichier.writeObject(newContact);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					obfichier.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				dispose();
-			}
+			Contact newContact = new Contact(null, null, null);
 
-		}
-		public void serializeObjet(AddContact newContact) throws IOException {
-			FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
-			BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
-			ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
-			obfichier.writeObject(newContact);
-			obfichier.close();
+			String Nom = TextLastName.getText();
+			String Prenom = TextFirstName.getText();
+			String Num = TextNumber.getText();
+
+			newContact.add(Nom, Prenom, Num);
+
+
+			if (e.getSource()==buttonOk){
+				try {
+					FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.txt");
+					ObjectOutputStream oos=new ObjectOutputStream(fichier);
+					oos.writeObject(newContact);
+					fichier.flush();
+					fichier.close();
+				}catch(Exception ex){ }
+			}
+			dispose();
 		}
 
 	}
+//	public void serializeObjet(AddContact newContact) throws IOException {
+//		FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
+//		BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
+//		ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
+//		obfichier.writeObject(newContact);
+//		obfichier.close();
+//	}
+
 
 	class EcouteurCancel implements ActionListener{
 		@Override
@@ -132,5 +125,6 @@ public class AddContact extends DefaultFrame {
 		}
 	}
 }
+
 
 
