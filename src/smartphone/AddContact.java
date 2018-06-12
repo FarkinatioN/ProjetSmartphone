@@ -87,13 +87,11 @@ public class AddContact extends DefaultFrame {
 	class EcouteurOK implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e){
-			Contact newContact = new Contact(null, null, null);
-
 			String Nom = TextLastName.getText();
 			String Prenom = TextFirstName.getText();
 			String Num = TextNumber.getText();
 
-			newContact.add(Nom, Prenom, Num);
+			Contact newContact = new Contact(Nom, Prenom, Num);
 
 
 			if (e.getSource()==buttonOk){

@@ -71,58 +71,51 @@ public class ListContact extends DefaultFrame{
 		jPanelCenterinCenter.setLayout(new GridLayout());
 
 		//Composition panelCenter
-		JList list = new JList();
-		Contact newContact = new Contact(null, null, null);
+		//JList list = new JList();
+		Contact newContact = new Contact(Contact.getNom(), Contact.getPrenom(), Contact.getNum());
 		FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
-			try{
-				ObjectInputStream in = new ObjectInputStream (fcontact) ;
-				newContact = (Contact) in.readObject() ;
-				in.close();
-
-			} catch (Exception ex)
-			{
-				System.err.println ("Erreur de lecture " + ex) ;
-			}
-			list.add(newContact.getNom());
-			jPanelCenterinCenter.add(list);
-			list.setBackground(Color.black);
-			list.setForeground(Color.white);
-
-
-			//add panel
-			getContentPane().add(jPanelNorth, BorderLayout.NORTH);
-			getContentPane().add(jPanelCenter, BorderLayout.CENTER);
-			jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
-
-			jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);
-
-			//ouverture de la fenêtre AddContact
-			contactEcouteur mouse = new contactEcouteur();
-			addContact.addMouseListener(mouse);
-
+		try{
+			ObjectInputStream in = new ObjectInputStream (fcontact) ;
+			newContact = (Contact) in.readObject() ;
+			in.close();
 		}
-		class contactEcouteur extends MouseAdapter {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				AddContact contact = new AddContact();
-				contact.setVisible(true);
-				contact.setSize(480, 800);
-				contact.setResizable(false);
-				contact.setLocationRelativeTo(null);
-			}	
+		catch (Exception ex){
+			System.err.println ("Erreur de lecture " + ex) ;
 		}
-		//	public static JList deserializeObjet(String f) throws IOException, ClassNotFoundException {
-		//
-		//		FileInputStream fichier = new FileInputStream(f);
-		//		BufferedInputStream bfichier = new BufferedInputStream(fichier);
-		//		ObjectInputStream obfichier = new ObjectInputStream(bfichier);
-		//		JList afficheContact = (JList) obfichier.readObject();
-		//		return afficheContact;
-		//	}
-		
+		javax.swing.ListModel model = new javax.swing.DefaultListModel();
+		javax.swing.JList liste = new javax.swing.JList(model);
+		 
+		//ajout d'un élément dans la liste
+		((javax.swing.DefaultListModel)liste.getModel()).addElement(newContact);
+		jPanelCenterinCenter.add(liste);
+		liste.setBackground(Color.black);
+		liste.setForeground(Color.white);
 
-		public void add(Component nom2, Component prenom2, Component num2) {
-			
-		}
+
+		//add panel
+		getContentPane().add(jPanelNorth, BorderLayout.NORTH);
+		getContentPane().add(jPanelCenter, BorderLayout.CENTER);
+		jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
+
+		jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);
+
+		//ouverture de la fenêtre AddContact
+		contactEcouteur mouse = new contactEcouteur();
+		addContact.addMouseListener(mouse);
 
 	}
+	class contactEcouteur extends MouseAdapter {
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			AddContact contact = new AddContact();
+			contact.setVisible(true);
+			contact.setSize(480, 800);
+			contact.setResizable(false);
+			contact.setLocationRelativeTo(null);
+		}
+	}
+	public void add(Component nom2, Component prenom2, Component num2) {
+
+	}
+
+}
