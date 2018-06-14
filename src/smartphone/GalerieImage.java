@@ -13,7 +13,14 @@ public class GalerieImage extends DefaultFrame{
 	//création Panel
 	private JPanel jPanelCenter = new JPanel(new BorderLayout());
 	private JPanel jPanelNorthinCenter = new JPanel(new BorderLayout());
-	private JPanel jPanelCenterinCenter = new JPanel();
+	private JPanel jPanelCenterinCenter = new JPanel(new GridLayout());
+	
+	private ImageIcon per1Icon = new ImageIcon("ImageGalerie/per1.png");
+	private JLabel per1Image = new JLabel(per1Icon);
+	private ImageIcon per2Icon = new ImageIcon("ImageGalerie/per2.png");
+	private JLabel per2Image = new JLabel(per2Icon);
+	private ImageIcon per3Icon = new ImageIcon("ImageGalerie/per3.png");
+	private JLabel per3Image = new JLabel(per3Icon);
 
 	public GalerieImage(){
 		
@@ -47,6 +54,10 @@ public class GalerieImage extends DefaultFrame{
 		getContentPane().add(jPanelCenter, BorderLayout.CENTER);
 		jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
 		jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);	
+		
+		jPanelCenterinCenter.add(per1Image);
+		jPanelCenterinCenter.add(per2Image);
+		jPanelCenterinCenter.add(per3Image);
 
 
 	}

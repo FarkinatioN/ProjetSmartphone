@@ -3,6 +3,7 @@ package smartphone;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -25,6 +26,8 @@ public class AddContact extends DefaultFrame {
 
 	private JPanel panel_center = new JPanel();
 	private JPanel panel_south = new JPanel();
+	
+	private ArrayList<Contact> listedesContacts = new ArrayList<Contact>();
 
 	public AddContact(){
 
@@ -88,62 +91,60 @@ public class AddContact extends DefaultFrame {
 	class EcouteurOK implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e){
-			
-			ArrayList<Contact> listedesContacts = new ArrayList<Contact>();
-			
-			String Nom = TextLastName.getText();
-			String Prenom = TextFirstName.getText();
-			String Num = TextNumber.getText();
-
-			Contact newContact = new Contact(Nom, Prenom, Num);
-
-			listedesContacts.add(newContact);
 
 			if (e.getSource()==buttonOk){
-				// creating output stream variables
-				FileOutputStream fos = null;
-				ObjectOutputStream oos = null;
+				
+				String Nom = TextLastName.getText();
+				String Prenom = TextFirstName.getText();
+				String Num = TextNumber.getText();
 
+				Contact newContact = new Contact(Nom, Prenom, Num);
+				
+				ArrayList<Contact> contactpourliste = new ArrayList<Contact>();
+				
+				try{
+					FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
+					BufferedInputStream bfichier = new BufferedInputStream(fcontact);
+					ObjectInputStream in = new ObjectInputStream (fcontact) ;
+					contactpourliste = (ArrayList<Contact>) in.readObject() ;
+					contactpourliste.add(newContact);
+					in.close();
+				}
+				catch (Exception ex){
+					System.err.println ("Erreur de lecture " + ex) ;
+				}
+				
+				//listedesContacts.add(newContact);
 				try {
-					// pour écrire les données en binaires
-					fos = new FileOutputStream("File/ListContact/ListContact.ser");
-
-					// convertir en binaire 
-					oos = new ObjectOutputStream(fos);
-
-					// écrire ou sauver dans ArrayList
-					oos.writeObject(listedesContacts);
-					oos.flush();
+					FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
+					BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
+					ObjectOutputStream oos = new ObjectOutputStream(bfichier);
+					oos.writeObject(contactpourliste);
 					oos.close();
-				} 
-				catch (FileNotFoundException fnfex) {
-					fnfex.printStackTrace();
-				}
-				catch (IOException ioex) {
-					ioex.printStackTrace();
-				}
-				dispose();
-				ListContact contact;
-				try {
-					contact = new ListContact();
-					contact.setVisible(true);
-					contact.setSize(480, 800);
-					contact.setResizable(false);
-					contact.setLocationRelativeTo(null);
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				}catch(Exception ex){ }
+			}
+			dispose();
+			ListContact contact;
+			try {
+				contact = new ListContact();
+				contact.setVisible(true);
+				contact.setSize(480, 800);
+				contact.setResizable(false);
+				contact.setLocationRelativeTo(null);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
+
 	}
-	//	public void serializeObjet(AddContact newContact) throws IOException {
-	//		FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
-	//		BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
-	//		ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
-	//		obfichier.writeObject(newContact);
-	//		obfichier.close();
-	//	}
+//	public void serializeObjet(AddContact newContact) throws IOException {
+//		FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
+//		BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
+//		ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
+//		obfichier.writeObject(newContact);
+//		obfichier.close();
+//	}
 
 
 	class EcouteurCancel implements ActionListener{
@@ -152,8 +153,18 @@ public class AddContact extends DefaultFrame {
 			dispose();
 		}
 	}
-}
 
+
+	public ArrayList<Contact> getListedesContacts() {
+		return listedesContacts;
+	}
+
+
+	public void setListedesContacts(ArrayList<Contact> listedesContacts) {
+		this.listedesContacts = listedesContacts;
+	}
+	
+}
 
 
 

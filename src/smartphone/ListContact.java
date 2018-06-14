@@ -3,6 +3,7 @@ package smartphone;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -24,6 +25,10 @@ public class ListContact extends DefaultFrame{
 
 	private JPanel jPanelNorthinCenter = new JPanel();
 	private JPanel jPanelCenterinCenter = new JPanel();
+	
+	private JPanel panelListe = new JPanel(new GridLayout(10,1));
+	
+	//AddContact contactpourliste;
 
 	public ListContact() throws FileNotFoundException{
 		// default parameters
@@ -72,25 +77,42 @@ public class ListContact extends DefaultFrame{
 
 		//Composition panelCenter
 		//JList list = new JList();
-		Contact newContact = new Contact(Contact.getNom(), Contact.getPrenom(), Contact.getNum());
+		//Contact newContact = new Contact(Contact.getNom(), Contact.getPrenom(), Contact.getNum());
 		
-		FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
+		//this.contactpourliste=contactpourliste;
+		//contactpourliste.getListedesContacts();
+		
+		ArrayList<Contact> contactpourliste = new ArrayList<Contact>();
+		
 		try{
+			FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
 			ObjectInputStream in = new ObjectInputStream (fcontact) ;
-			newContact = (Contact) in.readObject() ;
+			contactpourliste = (ArrayList<Contact>) in.readObject() ;
+			if (contactpourliste != null)
 			in.close();
 		}
 		catch (Exception ex){
 			System.err.println ("Erreur de lecture " + ex) ;
 		}
-		javax.swing.ListModel model = new javax.swing.DefaultListModel();
-		javax.swing.JList liste = new javax.swing.JList(model);
-		 
+		
+		JLabel[] labelContact = new JLabel[((ArrayList<Contact>) contactpourliste).size()];
+		for (int i = 0; i<((ArrayList<Contact>) contactpourliste).size(); i++) {
+			//JLabel labContact = new JLabel();
+			//JLabel labContact2 = CreationJlabel(labContact);
+			JLabel labContact = new JLabel();
+			labContact.setText(contactpourliste.get(i).getNom() + " " + contactpourliste.get(i).getPrenom() + " " + contactpourliste.get(i).getNum());
+			labelContact[i] = labContact;
+			
+			panelListe.add(labContact);
+
+			labContact.setBackground(Color.black);
+			labContact.setForeground(Color.white);
+		}
+
 		//ajout d'un élément dans la liste
-		((javax.swing.DefaultListModel)liste.getModel()).addElement(newContact);
-		jPanelCenterinCenter.add(liste);
-		liste.setBackground(Color.black);
-		liste.setForeground(Color.white);
+		jPanelCenterinCenter.add(panelListe);
+		panelListe.setBackground(Color.black);
+		panelListe.setForeground(Color.white);
 
 
 		//add panel
@@ -121,5 +143,10 @@ public class ListContact extends DefaultFrame{
 	public void add(Component nom2, Component prenom2, Component num2) {
 
 	}
+//	
+//	public JLabel CreationJlabel(JLabel x){
+//		x=new JLabel();
+//		return x;
+//	}
 
 }

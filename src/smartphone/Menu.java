@@ -121,8 +121,8 @@ public class Menu extends DefaultFrame implements ActionListener {
 	class contactEcouteur extends MouseAdapter {
 		@Override
 		public void mouseReleased(MouseEvent e) {
-<<<<<<< HEAD
 			ListContact contact;
+			//AddContact contactpourliste = new AddContact();
 			try {
 				contact = new ListContact();
 				contact.setVisible(true);
@@ -133,14 +133,6 @@ public class Menu extends DefaultFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-=======
-			ListContact contact = new ListContact();
-			contact.setVisible(true);
-			contact.setSize(480, 800);
-			contact.setResizable(false);
-			contact.setLocationRelativeTo(null);
-			dispose();
->>>>>>> ace1a578e32f3849c51b876c219c3c14a6602147
 		}
 	}
 
