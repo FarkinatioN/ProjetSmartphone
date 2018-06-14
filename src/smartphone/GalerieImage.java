@@ -12,8 +12,8 @@ public class GalerieImage extends DefaultFrame{
 
 	//création Panel
 	private JPanel jPanelCenter = new JPanel(new BorderLayout());
-
-	private JPanel jPanelNorthinCenter = new JPanel();
+	private JPanel jPanelNorthinCenter = new JPanel(new BorderLayout());
+	private JPanel jPanelCenterinCenter = new JPanel();
 
 	public GalerieImage(){
 		
@@ -37,10 +37,15 @@ public class GalerieImage extends DefaultFrame{
 		TextListGalerie.setBackground(Color.black);
 		TextListGalerie.setForeground(Color.white);
 		
-		//add panel
-		add(jPanelCenter, BorderLayout.CENTER);
-		jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
+		//création jPanelCenterinCenter
 		
+		//modif du JpanelCenterinCenter
+		jPanelCenterinCenter.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		//add panel
+		getContentPane().add(jPanelCenter, BorderLayout.CENTER);
+		jPanelCenter.add(jPanelNorthinCenter, BorderLayout.NORTH);
+		jPanelCenter.add(jPanelCenterinCenter, BorderLayout.CENTER);	
 
 
 	}
