@@ -99,6 +99,7 @@ public class ListContact extends DefaultFrame{
 		//ouverture de la fenêtre AddContact
 		contactEcouteur mouse = new contactEcouteur();
 		addContact.addMouseListener(mouse);
+		dispose();
 
 	}
 	class contactEcouteur extends MouseAdapter {

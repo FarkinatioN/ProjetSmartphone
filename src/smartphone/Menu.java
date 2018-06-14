@@ -101,9 +101,11 @@ public class Menu extends DefaultFrame implements ActionListener {
 		contactEcouteur mouseContact = new contactEcouteur ();
 		contact.addMouseListener(mouseContact);
 		
+		
 		//ouverture de la fenêtre galerie
 		galerieEcouteur mouseGalerie = new galerieEcouteur();
 		galerie.addMouseListener(mouseGalerie);
+		
 		
 		
 	}
@@ -115,6 +117,7 @@ public class Menu extends DefaultFrame implements ActionListener {
 			gal.setSize(480, 800);
 			gal.setResizable(false);
 			gal.setLocationRelativeTo(null);
+			dispose();
 		}
 	}
 	class contactEcouteur extends MouseAdapter {
@@ -125,6 +128,7 @@ public class Menu extends DefaultFrame implements ActionListener {
 			contact.setSize(480, 800);
 			contact.setResizable(false);
 			contact.setLocationRelativeTo(null);
+			dispose();
 		}
 	}
 
