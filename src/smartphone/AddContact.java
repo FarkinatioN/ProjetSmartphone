@@ -104,6 +104,17 @@ public class AddContact extends DefaultFrame {
 				}catch(Exception ex){ }
 			}
 			dispose();
+			ListContact contact;
+			try {
+				contact = new ListContact();
+				contact.setVisible(true);
+				contact.setSize(480, 800);
+				contact.setResizable(false);
+				contact.setLocationRelativeTo(null);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}

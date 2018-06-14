@@ -5,8 +5,8 @@ import java.io.Serializable;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class Contact implements Serializable, ListModel<ListeDesContacts>{
-	private static final long serialVersionUID = 1L;
+public class Contact implements Serializable{
+	
 	private static String Nom;
 	private static String Prenom;
 	private static String Num;
@@ -42,30 +42,6 @@ public class Contact implements Serializable, ListModel<ListeDesContacts>{
 	}
 
 	public void add(String nom2, String prenom2, String num2) {
-		
-	}
-
-	@Override
-	public void addListDataListener(ListDataListener arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ListeDesContacts getElementAt(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void removeListDataListener(ListDataListener arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	public String toString(){

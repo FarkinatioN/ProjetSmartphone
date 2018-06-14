@@ -103,6 +103,7 @@ public class ListContact extends DefaultFrame{
 		contactEcouteur mouse = new contactEcouteur();
 		addContact.addMouseListener(mouse);
 
+
 	}
 	class contactEcouteur extends MouseAdapter {
 		@Override
@@ -112,6 +113,7 @@ public class ListContact extends DefaultFrame{
 			contact.setSize(480, 800);
 			contact.setResizable(false);
 			contact.setLocationRelativeTo(null);
+			dispose();
 		}
 	}
 	public void add(Component nom2, Component prenom2, Component num2) {
