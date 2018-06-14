@@ -88,14 +88,16 @@ public class AddContact extends DefaultFrame {
 	class EcouteurOK implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			
+			ArrayList<Contact> listedesContacts = new ArrayList<Contact>();
+			
 			String Nom = TextLastName.getText();
 			String Prenom = TextFirstName.getText();
 			String Num = TextNumber.getText();
 
 			Contact newContact = new Contact(Nom, Prenom, Num);
 
-			ArrayList<Contact> listedesContact = new ArrayList<Contact>();
-			listedesContact.add(newContact);
+			listedesContacts.add(newContact);
 
 			if (e.getSource()==buttonOk){
 				// creating output stream variables
@@ -110,7 +112,7 @@ public class AddContact extends DefaultFrame {
 					oos = new ObjectOutputStream(fos);
 
 					// écrire ou sauver dans ArrayList
-					oos.writeObject(listedesContact);
+					oos.writeObject(listedesContacts);
 					oos.flush();
 					oos.close();
 				} 
