@@ -91,15 +91,12 @@ public class DefaultFrame extends JFrame {
 		//retour sur page d'avant dans ce cas home
 		EcouteurBack retour = new EcouteurBack();
 		back.addActionListener(retour);
-		dispose();
 		//retour home
 		EcouteurHome retourHome = new EcouteurHome();
 		home.addActionListener(retourHome);
-		dispose();
 		//ecouteur over
 		EcouteurOver over = new EcouteurOver();
 		overview.addMouseListener(over);
-		dispose();
 
 	}
 	class EcouteurBack implements ActionListener{

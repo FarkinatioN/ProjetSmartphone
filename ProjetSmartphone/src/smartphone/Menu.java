@@ -99,11 +99,9 @@ public class Menu extends DefaultFrame implements ActionListener {
 		contactEcouteur mouseContact = new contactEcouteur ();
 		contact.addMouseListener(mouseContact);
 		
-		
 		//ouverture de la fenêtre galerie
 		galerieEcouteur mouseGalerie = new galerieEcouteur();
 		galerie.addMouseListener(mouseGalerie);
-		
 		
 		
 	}
@@ -115,13 +113,11 @@ public class Menu extends DefaultFrame implements ActionListener {
 			gal.setSize(480, 800);
 			gal.setResizable(false);
 			gal.setLocationRelativeTo(null);
-			dispose();
 		}
 	}
 	class contactEcouteur extends MouseAdapter {
 		@Override
 		public void mouseReleased(MouseEvent e) {
-<<<<<<< HEAD
 			ListContact contact;
 			try {
 				contact = new ListContact();
@@ -133,14 +129,6 @@ public class Menu extends DefaultFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-=======
-			ListContact contact = new ListContact();
-			contact.setVisible(true);
-			contact.setSize(480, 800);
-			contact.setResizable(false);
-			contact.setLocationRelativeTo(null);
-			dispose();
->>>>>>> ace1a578e32f3849c51b876c219c3c14a6602147
 		}
 	}
 
