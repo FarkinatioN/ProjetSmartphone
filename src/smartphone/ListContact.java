@@ -3,28 +3,29 @@ package smartphone;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-
-public class ListContact extends DefaultFrame{
+public class ListContact extends DefaultFrame {
 	private static final long serialVersionUID = 1L;
 
-	//Composition pour le jPanelNorth
+	// Composition pour le jPanelNorth
 	private JLabel TextAddContact = new JLabel("Ajouter un nouveau contact");
 	private ImageIcon addContactImage = new ImageIcon("Image/addContact.png");
 	private JButton addContact = new JButton(addContactImage);
 
-	//Composition JpanelNorthinCenter
+	// Composition JpanelNorthinCenter
 	private JLabel TextListContact = new JLabel("Liste des contacts");
 
-	//création Panel
+	// création Panel
 	private JPanel jPanelNorth = new JPanel();
 	private JPanel jPanelCenter = new JPanel(new BorderLayout());
 
 	private JPanel jPanelNorthinCenter = new JPanel();
 	private JPanel jPanelCenterinCenter = new JPanel();
 
+	@SuppressWarnings("unchecked")
 	public ListContact() throws FileNotFoundException{
 		// default parameters
 		setUndecorated(true);
@@ -71,22 +72,52 @@ public class ListContact extends DefaultFrame{
 		jPanelCenterinCenter.setLayout(new GridLayout());
 
 		//Composition panelCenter
-		//JList list = new JList();
+
 		Contact newContact = new Contact(Contact.getNom(), Contact.getPrenom(), Contact.getNum());
-		FileInputStream fcontact = new FileInputStream("File/ListContact/ListContact.ser");
-		try{
-			ObjectInputStream in = new ObjectInputStream (fcontact) ;
-			newContact = (Contact) in.readObject() ;
-			in.close();
+
+		// creating input stream variables
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+
+		// creating List reference to hold AL values after de-serialization 
+		ArrayList<Contact> listedesContact = null;
+
+		try {
+			// reading binary data
+			fis = new FileInputStream("File/ListContact/ListContact.ser");
+
+			// converting binary-data to java-object
+			ois = new ObjectInputStream(fis);
+
+			// reading object's value and casting ArrayList<String>
+			listedesContact = (ArrayList<Contact>) ois.readObject();
+		} 
+		catch (FileNotFoundException fnfex) {
+			fnfex.printStackTrace();
 		}
-		catch (Exception ex){
-			System.err.println ("Erreur de lecture " + ex) ;
+		catch (IOException ioex) {
+			ioex.printStackTrace();
+		} 
+		catch (ClassNotFoundException ccex) {
+			ccex.printStackTrace();
 		}
-		javax.swing.ListModel model = new javax.swing.DefaultListModel();
-		javax.swing.JList liste = new javax.swing.JList(model);
-		 
-		//ajout d'un élément dans la liste
-		((javax.swing.DefaultListModel)liste.getModel()).addElement(newContact);
+
+		// iterating & printing ArrayList values to console
+//		javax.swing.ListModel model = new javax.swing.DefaultListModel();
+//		javax.swing.JList liste = new javax.swing.JList(model);
+//		for(Contact lesContacts : listedesContact){
+//			//ajout d'un élément dans la liste
+//			//((javax.swing.DefaultListModel)liste.getModel()).addElement(lesContacts);
+//			//liste = new JList<String>(listedesContact.toArray(new String[listedesContact.size()]));
+//			listedesContact.add(lesContacts);
+//		}
+		JList liste = new JList(listedesContact.toArray());
+//		javax.swing.ListModel model = new javax.swing.DefaultListModel();
+//		javax.swing.JList liste = new javax.swing.JList(model);
+//
+//		//ajout d'un élément dans la liste
+//		((javax.swing.DefaultListModel)liste.getModel()).addElement(newContact);
+		
 		jPanelCenterinCenter.add(liste);
 		liste.setBackground(Color.black);
 		liste.setForeground(Color.white);
@@ -105,6 +136,7 @@ public class ListContact extends DefaultFrame{
 
 
 	}
+
 	class contactEcouteur extends MouseAdapter {
 		@Override
 		public void mouseReleased(MouseEvent e) {
@@ -116,6 +148,7 @@ public class ListContact extends DefaultFrame{
 			dispose();
 		}
 	}
+
 	public void add(Component nom2, Component prenom2, Component num2) {
 
 	}

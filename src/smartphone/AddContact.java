@@ -3,6 +3,7 @@ package smartphone;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -93,38 +94,54 @@ public class AddContact extends DefaultFrame {
 
 			Contact newContact = new Contact(Nom, Prenom, Num);
 
+			ArrayList<Contact> listedesContact = new ArrayList<Contact>();
+			listedesContact.add(newContact);
 
 			if (e.getSource()==buttonOk){
+				// creating output stream variables
+				FileOutputStream fos = null;
+				ObjectOutputStream oos = null;
+
 				try {
-					FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.txt");
-					ObjectOutputStream oos=new ObjectOutputStream(fichier);
-					oos.writeObject(newContact);
-					fichier.flush();
-					fichier.close();
-				}catch(Exception ex){ }
-			}
-			dispose();
-			ListContact contact;
-			try {
-				contact = new ListContact();
-				contact.setVisible(true);
-				contact.setSize(480, 800);
-				contact.setResizable(false);
-				contact.setLocationRelativeTo(null);
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+					// pour écrire les données en binaires
+					fos = new FileOutputStream("File/ListContact/ListContact.ser");
+
+					// convertir en binaire 
+					oos = new ObjectOutputStream(fos);
+
+					// écrire ou sauver dans ArrayList
+					oos.writeObject(listedesContact);
+					oos.flush();
+					oos.close();
+				} 
+				catch (FileNotFoundException fnfex) {
+					fnfex.printStackTrace();
+				}
+				catch (IOException ioex) {
+					ioex.printStackTrace();
+				}
+				dispose();
+				ListContact contact;
+				try {
+					contact = new ListContact();
+					contact.setVisible(true);
+					contact.setSize(480, 800);
+					contact.setResizable(false);
+					contact.setLocationRelativeTo(null);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
-
 	}
-//	public void serializeObjet(AddContact newContact) throws IOException {
-//		FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
-//		BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
-//		ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
-//		obfichier.writeObject(newContact);
-//		obfichier.close();
-//	}
+	//	public void serializeObjet(AddContact newContact) throws IOException {
+	//		FileOutputStream fichier = new FileOutputStream("File/ListContact/ListContact.ser");
+	//		BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
+	//		ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
+	//		obfichier.writeObject(newContact);
+	//		obfichier.close();
+	//	}
 
 
 	class EcouteurCancel implements ActionListener{
@@ -134,6 +151,7 @@ public class AddContact extends DefaultFrame {
 		}
 	}
 }
+
 
 
 

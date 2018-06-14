@@ -45,6 +45,6 @@ public class Contact implements Serializable{
 		
 	}
 	public String toString(){
-		return Nom + "  " + Prenom + "  " + Num;
+		return Nom + "\t  " + Prenom + "\t  " + Num;
 	}
 }

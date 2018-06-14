@@ -41,6 +41,7 @@ public class GalerieImage extends DefaultFrame{
 		
 		//modif du JpanelCenterinCenter
 		jPanelCenterinCenter.setLayout(new GridLayout(1, 0, 0, 0));
+		jPanelCenterinCenter.setBackground(Color.BLACK);
 		
 		//add panel
 		getContentPane().add(jPanelCenter, BorderLayout.CENTER);
